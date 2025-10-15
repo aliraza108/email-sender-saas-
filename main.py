@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from agents import Agent, Runner, AsyncOpenAI, set_default_openai_api, set_default_openai_client, set_tracing_disabled
+from dataclasses import dataclass
 
 # Disable tracing for production
 set_tracing_disabled(True)
@@ -14,6 +15,12 @@ BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 client = AsyncOpenAI(base_url=BASE_URL, api_key=API_KEY)
 set_default_openai_client(client=client)
 set_default_openai_api("chat_completions")
+
+@dataclass
+class output:
+    subject: str
+    body: str
+    general_answer:str
 
 # --- FastAPI App ---
 app = FastAPI(title="Outreach Assistant API")
@@ -62,6 +69,7 @@ agent = Agent(
         "}\n"
     ),
     model=MODEL,
+    output_type=output
 )
 
 
