@@ -72,6 +72,43 @@ agent = Agent(
     output_type=output
 )
 
+from fastapi import FastAPI, Request
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+@app.post("/send-email")
+async def send_email(request: Request):
+    data = await request.json()
+    access_token = data.get("access_token")
+    to_email = data.get("to")
+    subject = data.get("subject")
+    body = data.get("body")
+
+    creds = Credentials(token=access_token)
+    service = build("gmail", "v1", credentials=creds)
+
+    from email.mime.text import MIMEText
+    import base64
+
+    message = MIMEText(body)
+    message["to"] = to_email
+    message["subject"] = subject
+    raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
+
+    try:
+        service.users().messages().send(userId="me", body={"raw": raw}).execute()
+        return {"status": "sent"}
+    except Exception as e:
+        return {"error": str(e)}
 
 # --- FastAPI Chat Endpoint ---
 @app.post("/generate-email")
