@@ -69,7 +69,7 @@ GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
 GOOGLE_OAUTH_REDIRECT = os.environ.get("GOOGLE_OAUTH_REDIRECT")  # e.g., https://api.yourdomain.com/auth/google/callback
 # front-end redirect target after successful connect (update this)
-FRONTEND_AFTER_CONNECT = os.environ.get("FRONTEND_AFTER_CONNECT", "https://your-frontend-domain.com/dashboard")
+FRONTEND_AFTER_CONNECT = os.environ.get("FRONTEND_AFTER_CONNECT", "http://localhost:3000/dashboard")
 
 SCOPES = ["https://www.googleapis.com/auth/gmail.send", "https://mail.google.com/"]
 
