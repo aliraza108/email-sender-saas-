@@ -53,11 +53,15 @@ agent = Agent(
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # lock this down in prod
+    allow_origins=[
+        "http://localhost:3000",
+        "https://email-sender-saas.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # --- Supabase client (server, service role) ---
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
