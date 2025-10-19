@@ -13,6 +13,10 @@ from agents import Agent, Runner, AsyncOpenAI, set_default_openai_api, set_defau
 from dataclasses import dataclass
 from dotenv import load_dotenv
 
+origins = os.getenv("CORS_ORIGINS", "").split(",")
+CORS_ORIGINS="https://email-sender-saas.vercel.app","http://localhost:3000"
+
+
 load_dotenv()
 
 set_tracing_disabled(True)
