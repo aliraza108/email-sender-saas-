@@ -24,7 +24,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",
+        "https://pitchcraftai-silk.vercel.app",
         "https://email-sender-saas.vercel.app",
     ],
     allow_credentials=True,
