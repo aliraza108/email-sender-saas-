@@ -27,7 +27,8 @@ app.add_middleware(
         "https://pitchcraftai-silk.vercel.app",
         "https://email-sender-saas.vercel.app",
         "http://localhost:8080",
-        "http://localhost:3000"
+        "http://localhost:3000",
+        "https://pitchcraft-email.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
